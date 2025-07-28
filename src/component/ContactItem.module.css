@@ -1,0 +1,80 @@
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f5f5f5;
+  padding: 12px 16px;
+  margin: 10px 0;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  gap: 16px;
+  transition: all 0.2s ease;
+}
+
+.selected {
+  background-color: #e3f2fd;
+  border-color: #304ffe;
+  box-shadow: 0 0 0 2px #304ffe44;
+}
+
+.checkbox {
+  width: 18px;
+  height: 18px;
+  accent-color: #304ffe;
+  cursor: pointer;
+}
+
+.contactInfo {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  flex: 1;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.contactInfo p {
+  margin: 0;
+  min-width: 130px;
+  overflow-wrap: break-word;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.actions button {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  background-color: #fff;
+  transition: all 0.2s ease-in-out;
+}
+
+.actions button:hover {
+  background-color: #eee;
+  font-size: 1.2rem;
+}
+
+@media (max-width: 600px) {
+  .item {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 12px;
+  }
+
+  .contactInfo {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    width: 100%;
+  }
+
+  .actions {
+    margin-top: 10px;
+  }
+}
