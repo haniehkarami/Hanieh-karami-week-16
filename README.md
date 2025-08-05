@@ -1,12 +1,61 @@
-# React + Vite
+📇 Contact List App
+A modern, responsive contact management application built with React.js.
+Easily add, edit, delete, and search contacts with smooth UI interactions.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+✨ Features
+Add, Edit, Delete Contacts
 
-Currently, two official plugins are available:
+Bulk Delete multiple contacts
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Real-time Search by name, email, or phone
 
-## Expanding the ESLint configuration
+Form Validation using react-hook-form & yup
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Confirmation Modals for delete actions
+
+Responsive Design for mobile & desktop
+
+🛠 Tech Stack
+React.js (Functional Components + Hooks)
+
+Vite (Build Tool)
+
+CSS Modules (Styling)
+
+UUID (Unique ID Generation)
+
+react-hook-form + yup (Form handling & validation)
+
+🚀 Why This Project?
+Demonstrates clean React architecture
+
+Implements Context API for global state management
+
+Shows modern UI/UX patterns
+
+Perfect for portfolio showcase
+
+📂 Installation & Setup
+bash
+Copy
+Edit
+
+# Clone the repository
+
+git clone https://github.com/haniehkarami/Hanieh-karami-week17
+
+# Navigate into the project
+
+cd contact-list-app
+
+# Install dependencies
+
+npm install
+
+# Run the development server
+
+npm run dev
+
+👩‍💻 Developer
+Hanieh Karami
+https://github.com/haniehkarami
