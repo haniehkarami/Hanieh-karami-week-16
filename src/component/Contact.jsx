@@ -3,10 +3,13 @@ import { v4 } from "uuid";
 import { ContactsContext } from "../contaxt/ContactsContext";
 
 import ContactsList from "./ContactsList";
+import ContactForm from "./ContactForm";
 import inputs from "../constants/inputs";
 import ConfirmationModal from "./ConfirmationModal";
 
 import styles from "./Contacts.module.css";
+import toast from "react-hot-toast";
+import ContactFormModal from "./ContactFormModal";
 
 function Contacts() {
   const {
@@ -20,12 +23,16 @@ function Contacts() {
     dispatch,
     showModal,
     closeModal,
+    editHandler,
   } = useContext(ContactsContext);
 
   const [searchTerm, setSearchTerm] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     if (success) {
+      toast.success(success);
+
       const timer = setTimeout(() => {
         dispatch({ type: "SET_SUCCESS", payload: "" });
       }, 2500);
@@ -33,62 +40,26 @@ function Contacts() {
     }
   }, [success, dispatch]);
 
-  const changeHandeler = (event) => {
-    const { name, value } = event.target;
-    dispatch({ type: "UPDATE_FIELD", payload: { name, value } });
-  };
-  const validateInputs = () => {
-    if (!contact.name) return "Name is required!";
-    if (!contact.lastName) return "Last name is required!";
-    if (!contact.email) return "Email is required!";
-    if (!contact.phone) return "Phone is required!";
+  useEffect(() => {
+    if (alert) {
+      toast.error(alert);
 
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact.email)) {
-      return "Please enter a valid email (e.g., user@example.com)";
+      const timer = setTimeout(() => {
+        dispatch({ type: "SET_ALERT", payload: "" });
+      }, 2500);
+      return () => clearTimeout(timer);
     }
-
-    if (!/^\d{8,}$/.test(contact.phone.replace(/\D/g, ""))) {
-      return "Phone must contain at least 8 digits";
-    }
-
-    return null;
-  };
-
-  const addHandler = () => {
-    const errorMessage = validateInputs();
-    if (errorMessage) {
-      dispatch({ type: "SET_ALERT", payload: errorMessage });
-      return;
-    }
-    const newContact = { ...contact, id: v4() };
-    dispatch({ type: "ADD_CONTACT", payload: newContact });
-  };
-
-  const updateHandler = () => {
-    const errorMessage = validateInputs();
-    if (errorMessage) {
-      dispatch({ type: "SET_ALERT", payload: errorMessage });
-      return;
-    }
-    dispatch({ type: "UPDATE_CONTACT", payload: contact });
-  };
-
-  const deleteHandler = (id, name) => {
-    showModal(`Are you sure you want to delete ${name} ? `, () => {
-      dispatch({ type: "DELETE_CONTACT", payload: { id, name } });
-    });
-  };
-
-  const editHandler = (id) => {
-    const contactToEdit = contacts.find((contact) => contact.id === id);
-    dispatch({ type: "SET_EDITING", payload: contactToEdit });
-  };
+  }, [alert, dispatch]);
 
   const cancelEdit = () => {
     dispatch({ type: "CANCEL_EDIT" });
   };
 
- 
+  const handelEdit = (id) => {
+    editHandler(id);
+    setIsModalOpen(true);
+  };
+
   const deletedSelected = () => {
     if (selectedContacts.length) {
       showModal(
@@ -111,6 +82,26 @@ function Contacts() {
 
   return (
     <div className={styles.container}>
+      
+
+      <ContactFormModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      >
+        <ContactForm
+          contact={contact}
+          editingId={editingId}
+          submitHandler={(data) => {
+            if (editingId) {
+              dispatch({ type: "UPDATE_CONTACT", payload: data });
+            } else {
+              dispatch({ type: "ADD_CONTACT", payload: { ...data, id: v4() } });
+            }
+            setIsModalOpen(false);
+          }}
+        />
+      </ContactFormModal>
+
       <div className={styles.searchContainer}>
         <input
           type="text"
@@ -120,42 +111,24 @@ function Contacts() {
           className={styles.searchInput}
         />
       </div>
-      {editingId && (
-        <div className={styles.editAlert}>
-          <p>You are editing a contact</p>
-          <button onClick={cancelEdit}>✖️</button>
-        </div>
-      )}
-      <div className={styles.form}>
-        {inputs.map((input, index) => (
-          <input
-            key={index}
-            type={input.type}
-            placeholder={input.placeholder}
-            name={input.name}
-            value={contact[input.name]}
-            onChange={changeHandeler}
-          />
-        ))}
+<div>
+<button
+        onClick={() => {
+          dispatch({ type: "CANCEL_EDIT" });
+          setIsModalOpen(true);
+        }}
+        className={styles.addButton}
+      >
+      Add contact
+      </button>
+</div>
 
-        <button onClick={editingId ? updateHandler : addHandler}>
-          {editingId ? "Update Contact" : "Add Contact"}
-        </button>
-      </div>
-
-      {alert && (
-        <div className={styles.errorAlert}>
-          <p>{alert}</p>
-        </div>
-      )}
-
-      {success && (
-        <div className={styles.alert}>
-          <p>{success}</p>
-        </div>
-      )}
-
-      <ContactsList contacts={searchTerm ? filteredContacts : contacts} />
+  
+      <ContactsList
+        contacts={searchTerm ? filteredContacts : contacts}
+        searchTerm={searchTerm}
+        editHandler={handelEdit}
+      />
       <ConfirmationModal />
       {selectedContacts.length > 0 && (
         <button

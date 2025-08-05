@@ -6,14 +6,9 @@ import ContactItem from "./ContactItem";
 
 import styles from "./ContactsList.module.css";
 
-function ContactsList({ searchTerm }) {
-  const {
-    contacts,
-    deleteHandler,
-    editHandler,
-    toggleSelectContact ,
-    selectedContacts,
-  } = useContext(ContactsContext);
+function ContactsList({ searchTerm, contacts, editHandler }) {
+  const { deleteHandler, toggleSelectContact, selectedContacts } =
+    useContext(ContactsContext);
 
   return (
     <div className={styles.container}>
@@ -26,6 +21,7 @@ function ContactsList({ searchTerm }) {
               key={contact.id}
               data={contact}
               searchTerm={searchTerm}
+              editHandler={editHandler}
             />
           ))}
         </ul>

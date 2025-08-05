@@ -1,0 +1,41 @@
+.container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  backdrop-filter: blur(2px);
+}
+
+.modal {
+  position: relative;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 16px;
+  width: 95%;
+  max-width: 980px;
+  box-shadow: 0 20px 40px rgba(60, 60, 62, 0.421);
+}
+
+.closeButton {
+  position: absolute;
+  z-index: 1001;
+  top: 12px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 1.7rem;
+  font-weight: bold;
+  color: #555;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+
+.closeButton:hover {
+  color: blue;
+}

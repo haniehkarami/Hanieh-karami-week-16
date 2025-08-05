@@ -1,13 +1,14 @@
 .item {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+ align-items: center;
+  justify-content: space-between; 
   background-color: #f5f5f5;
   padding: 12px 16px;
   margin: 10px 0;
   border-radius: 10px;
   border: 1px solid #ddd;
   gap: 16px;
+  flex-wrap: wrap;
   transition: all 0.2s ease;
 }
 
@@ -19,15 +20,19 @@
 
 .checkbox {
   width: 18px;
-  height: 18px;
+  height: inherit;
   accent-color: #304ffe;
   cursor: pointer;
 }
 
 .contactInfo {
-  display: flex;
   align-items: center;
-  gap: 30px;
+  justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
   flex: 1;
   font-size: 0.95rem;
   color: #333;
@@ -60,17 +65,16 @@
   font-size: 1.2rem;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .item {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 12px;
+    flex-direction: row;
+    padding: auto 35px;
   }
 
   .contactInfo {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 4px;
+    text-align: center;
+    gap: 7px;
     width: 100%;
   }
 

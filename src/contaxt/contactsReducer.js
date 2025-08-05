@@ -80,15 +80,7 @@ const contactReducer = (state, action) => {
         success: `${state.selectedContacts.length} contact(s) deleted successfully!`,
       };
 
-    case "UPDATE_FIELD":
-      return {
-        ...state,
-        contact: {
-          ...state.contact,
-          [action.payload.name]: action.payload.value,
-        },
-        alert: "",
-      };
+    
 
     case "SET_SUCCESS":
       return {

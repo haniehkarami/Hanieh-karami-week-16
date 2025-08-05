@@ -7,8 +7,9 @@ import styles from "./ContactItem.module.css";
 function ContactItem({
   data: { id, name, lastName, email, phone },
   searchTerm,
+  editHandler,
 }) {
-  const { deleteHandler, editHandler, toggleSelectContact , selectedContacts } =
+  const { deleteHandler, toggleSelectContact, selectedContacts } =
     useContext(ContactsContext);
 
   const isMatch = () => {
@@ -31,7 +32,7 @@ function ContactItem({
         type="checkbox"
         className={styles.checkbox}
         checked={selectedContacts.includes(id)}
-        onChange={() => toggleSelectContact (id)}
+        onChange={() => toggleSelectContact(id)}
       />
 
       <div className={styles.contactInfo}>
@@ -44,7 +45,7 @@ function ContactItem({
 
       <div className={styles.actions}>
         <button onClick={() => editHandler(id)}>🖋️</button>
-        <button onClick={() => deleteHandler(id)}>🗑️</button>
+        <button onClick={() => deleteHandler(id, name)}>🗑️</button>
       </div>
     </li>
   );

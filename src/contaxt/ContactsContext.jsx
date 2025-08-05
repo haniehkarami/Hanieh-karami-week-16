@@ -6,6 +6,7 @@ export const ContactsContext = createContext();
 
 function ContactProvider({ children }) {
   const [state, dispatch] = useReducer(contactsreducer, initialState);
+  const { contacts } = state;
 
   useEffect(() => {
     localStorage.setItem("contacts", JSON.stringify(state.contacts));
@@ -28,6 +29,17 @@ function ContactProvider({ children }) {
     });
   };
 
+  const deleteHandler = (id, name) => {
+    showModal(`Are you sure you want to delete ${name} ? `, () => {
+      dispatch({ type: "DELETE_CONTACT", payload: { id, name } });
+    });
+  };
+
+  const editHandler = (id) => {
+    const contactToEdit = contacts.find((contact) => contact.id === id);
+    dispatch({ type: "SET_EDITING", payload: contactToEdit });
+  };
+
   return (
     <ContactsContext.Provider
       value={{
@@ -36,6 +48,8 @@ function ContactProvider({ children }) {
         showModal,
         closeModal,
         toggleSelectContact,
+        deleteHandler,
+        editHandler,
       }}
     >
       {children}
